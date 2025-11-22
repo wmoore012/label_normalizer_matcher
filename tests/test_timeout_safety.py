@@ -1,5 +1,5 @@
-# SPDX-License-Identifier: MIT
-# Copyright (c) 2024 MusicScope
+# SPDX - License - Identifier: MIT
+# Copyright (c) 2025 Perday CatalogLAB™
 
 """
 Timeout safety tests for label normalization.
@@ -67,7 +67,9 @@ class TestTimeoutSafety:
     def test_timeout_error_raised(self):
         """Test that timeout errors are properly raised."""
         # Create a scenario that would timeout
-        huge_candidates = [f"Label {i} Records Entertainment Music Group" for i in range(10000)]
+        huge_candidates = [
+            f"Label {i} Records Entertainment Music Group" for i in range(10000)
+        ]
 
         with pytest.raises(LabelNormalizationError, match="timed out"):
             find_similar_labels_timed(

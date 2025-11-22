@@ -1,5 +1,5 @@
-# SPDX-License-Identifier: MIT
-# Copyright (c) 2024 MusicScope
+# SPDX - License - Identifier: MIT
+# Copyright (c) 2025 Perday CatalogLAB™
 
 """
 Benchmarking utilities for label normalization performance.
@@ -14,7 +14,12 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Dict, List
 
-from .core import clear_cache, get_canonical_label_id, normalize_label, strip_year_and_suffix
+from .core import (
+    clear_cache,
+    get_canonical_label_id,
+    normalize_label,
+    strip_year_and_suffix,
+)
 
 
 @dataclass
@@ -214,7 +219,9 @@ class LabelNormalizerBenchmark:
         self.results.append(result)
         return result
 
-    def run_comprehensive_benchmark(self, sample_size: int = 1000) -> Dict[str, BenchmarkResult]:
+    def run_comprehensive_benchmark(
+        self, sample_size: int = 1000
+    ) -> Dict[str, BenchmarkResult]:
         """
         Run comprehensive benchmarks on all operations.
 
@@ -247,10 +254,12 @@ class LabelNormalizerBenchmark:
         ]
 
         # Create test datasets
-        normalization_labels = (base_labels * (sample_size // len(base_labels) + 1))[:sample_size]
-        copyright_test_labels = (copyright_labels * (sample_size // len(copyright_labels) + 1))[
+        normalization_labels = (base_labels * (sample_size // len(base_labels) + 1))[
             :sample_size
         ]
+        copyright_test_labels = (
+            copyright_labels * (sample_size // len(copyright_labels) + 1)
+        )[:sample_size]
 
         results = {}
 
@@ -261,7 +270,9 @@ class LabelNormalizerBenchmark:
         results["canonical_ids"] = self.benchmark_canonical_ids(normalization_labels)
 
         # Benchmark copyright stripping
-        results["copyright_stripping"] = self.benchmark_copyright_stripping(copyright_test_labels)
+        results["copyright_stripping"] = self.benchmark_copyright_stripping(
+            copyright_test_labels
+        )
 
         return results
 
@@ -300,7 +311,7 @@ class LabelNormalizerBenchmark:
             print(f"\nOperation: {result.operation}")
             print(f"  Labels processed: {result.labels_processed:,}")
             print(f"  Duration: {result.duration_seconds:.3f}s")
-            print(f"  Performance: {result.labels_per_second:,.0f} labels/second")
+            print(f"  Performance: {result.labels_per_second:,.0f} labels / second")
             print(f"  Memory usage: {result.memory_usage_mb:.1f} MB")
             if result.cache_hit_rate > 0:
                 print(f"  Cache hit rate: {result.cache_hit_rate:.1%}")

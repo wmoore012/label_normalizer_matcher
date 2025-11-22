@@ -7,6 +7,13 @@
 
 Music industry label normalization and matching with comprehensive database
 
+**Repo:** https://github.com/wmoore012/label-normalizer-matcher
+**What it does:** Scrubs ©, dates, LLC/Inc, and other clutter from label strings and assigns a single canonical ID so reporting and CRM systems stay consistent.
+
+## 🙋‍♂️ Why I Built It
+
+CatalogLAB’s ETL needs one canonical label ID per release before I can build trustworthy label-share dashboards. I open-sourced this matcher to show how I blend domain knowledge (decoding indie subsidiaries, Unicode clutter, LLC/Inc suffixes) with practical data engineering so analysts and CRMs can roll up revenue accurately. Hiring teams can see the exact normalization logic I run for artists every day.
+
 ## 🚀 Performance Highlights
 
 **Normalizes 100K labels in <5 seconds**
@@ -22,8 +29,12 @@ Music industry label normalization and matching with comprehensive database
 
 ## 📦 Installation
 
+Install straight from GitHub:
+
 ```bash
-pip install label-normalizer-matcher
+git clone https://github.com/wmoore012/label-normalizer-matcher.git
+cd label-normalizer-matcher
+pip install -e .
 ```
 
 ## 🔥 Quick Start
@@ -140,6 +151,12 @@ Built by Wilton Moore at Perday Labs for production use. This module demonstrate
 - **DevOps Excellence**: CI/CD, monitoring, and deployment automation
 - **Security Expertise**: Threat modeling and secure coding practices
 - **Quality Assurance**: Comprehensive testing and code review processes
+
+## 📬 Contact
+
+Questions or collaboration ideas? Reach out anytime:
+- LinkedIn: https://www.linkedin.com/in/wiltonmoore/
+- GitHub: https://github.com/wmoore012
 
 ---
 

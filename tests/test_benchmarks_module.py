@@ -1,5 +1,5 @@
-# SPDX-License-Identifier: MIT
-# Copyright (c) 2024 MusicScope
+# SPDX - License - Identifier: MIT
+# Copyright (c) 2025 Perday CatalogLAB™
 
 """
 Tests for the benchmarks module functionality.
@@ -36,7 +36,7 @@ class TestBenchmarkModule:
             labels_per_second=200.0,
             memory_usage_mb=10.0,
             cache_hit_rate=0.8,
-            timestamp="2024-01-01T00:00:00",
+            timestamp="2025 - 01 - 01T00:00:00",
         )
 
         assert result.operation == "test_op"
@@ -45,7 +45,7 @@ class TestBenchmarkModule:
         assert result.labels_per_second == 200.0
         assert result.memory_usage_mb == 10.0
         assert result.cache_hit_rate == 0.8
-        assert result.timestamp == "2024-01-01T00:00:00"
+        assert result.timestamp == "2025 - 01 - 01T00:00:00"
 
     def test_benchmark_runner_init(self):
         """Test benchmark runner initialization."""

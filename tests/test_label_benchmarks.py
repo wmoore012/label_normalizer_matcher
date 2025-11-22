@@ -1,5 +1,5 @@
-# SPDX-License-Identifier: MIT
-# Copyright (c) 2024 MusicScope
+# SPDX - License - Identifier: MIT
+# Copyright (c) 2025 Perday CatalogLAB™
 
 """
 Benchmark tests for label normalization performance.
@@ -84,10 +84,12 @@ class TestNormalizationBenchmarks:
 
         print("\nNormalization Performance:")
         print(f"  Processed {len(labels)} labels in {duration:.3f}s")
-        print(f"  Rate: {labels_per_second:.0f} labels/second")
+        print(f"  Rate: {labels_per_second:.0f} labels / second")
 
         # Performance assertion - should be fast
-        assert labels_per_second > 2000, f"Too slow: {labels_per_second:.0f} labels/sec"
+        assert (
+            labels_per_second > 2000
+        ), f"Too slow: {labels_per_second:.0f} labels / sec"
 
     @pytest.mark.benchmark
     def test_canonical_id_speed(self):
@@ -106,10 +108,10 @@ class TestNormalizationBenchmarks:
 
         print("\nCanonical ID Performance:")
         print(f"  Generated {len(labels)} IDs in {duration:.3f}s")
-        print(f"  Rate: {ids_per_second:.0f} IDs/second")
+        print(f"  Rate: {ids_per_second:.0f} IDs / second")
 
         # Performance assertion
-        assert ids_per_second > 1000, f"Too slow: {ids_per_second:.0f} IDs/sec"
+        assert ids_per_second > 1000, f"Too slow: {ids_per_second:.0f} IDs / sec"
 
     @pytest.mark.benchmark
     def test_cache_performance(self):
@@ -122,7 +124,7 @@ class TestNormalizationBenchmarks:
             normalize_label(label)
         first_pass_time = time.time() - start_time
 
-        stats_after_first = get_cache_stats()
+        get_cache_stats()
 
         # Second pass - should hit cache
         start_time = time.time()
@@ -133,14 +135,16 @@ class TestNormalizationBenchmarks:
         stats_after_second = get_cache_stats()
 
         # Calculate performance improvement
-        speedup = first_pass_time / second_pass_time if second_pass_time > 0 else float("inf")
+        speedup = (
+            first_pass_time / second_pass_time if second_pass_time > 0 else float("inf")
+        )
 
         print("\nCache Performance:")
         print(
-            f"  First pass: {first_pass_time:.3f}s ({len(labels) / first_pass_time:.0f} labels/sec)"
+            f"  First pass: {first_pass_time:.3f}s ({len(labels) / first_pass_time:.0f} labels / sec)"
         )
         print(
-            f"  Second pass: {second_pass_time:.3f}s ({len(labels) / second_pass_time:.0f} labels/sec)"
+            f"  Second pass: {second_pass_time:.3f}s ({len(labels) / second_pass_time:.0f} labels / sec)"
         )
         print(f"  Speedup: {speedup:.1f}x")
         print(f"  Hit rate: {stats_after_second.hit_rate:.2%}")
@@ -180,9 +184,11 @@ class TestNormalizationBenchmarks:
         print(f"  Memory increase: {memory_increase:.1f} MB")
         print(f"  Cache size: {stats.size} entries")
         if stats.size > 0:
-            print(f"  Memory per cache entry: {memory_increase * 1024 / stats.size:.1f} KB")
+            print(
+                f"  Memory per cache entry: {memory_increase * 1024 / stats.size:.1f} KB"
+            )
         else:
-            print("  Memory per cache entry: N/A (no cache entries)")
+            print("  Memory per cache entry: N / A (no cache entries)")
 
         # Memory usage should be reasonable
         assert memory_increase < 200, f"Too much memory used: {memory_increase:.1f} MB"
@@ -210,10 +216,12 @@ class TestNormalizationBenchmarks:
 
         print("\nCopyright Stripping Performance:")
         print(f"  Processed {len(copyright_labels)} labels in {duration:.3f}s")
-        print(f"  Rate: {labels_per_second:.0f} labels/second")
+        print(f"  Rate: {labels_per_second:.0f} labels / second")
 
         # Should be fast even with complex regex
-        assert labels_per_second > 1000, f"Too slow: {labels_per_second:.0f} labels/sec"
+        assert (
+            labels_per_second > 1000
+        ), f"Too slow: {labels_per_second:.0f} labels / sec"
 
 
 class TestScalabilityBenchmarks:
@@ -237,7 +245,7 @@ class TestScalabilityBenchmarks:
         duration = time.time() - start_time
         labels_per_second = size / duration
 
-        print(f"\nScale {size}: {labels_per_second:.0f} labels/second")
+        print(f"\nScale {size}: {labels_per_second:.0f} labels / second")
 
         # Performance should scale reasonably
         assert labels_per_second > 1000, f"Poor performance at scale {size}"
@@ -276,7 +284,7 @@ class TestScalabilityBenchmarks:
         print(f"  Hit rate: {stats.hit_rate:.2%}")
 
         # Should have reasonable hit rate with duplicates (relaxed for CI)
-        expected_hit_rate = (len(labels) - len(base_labels)) / len(labels)
+        (len(labels) - len(base_labels)) / len(labels)
         # If cache tracking isn't working, just check that we don't crash
         assert stats.hit_rate >= 0.0, f"Invalid hit rate: {stats.hit_rate:.2%}"
 

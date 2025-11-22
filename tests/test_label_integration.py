@@ -1,5 +1,5 @@
-# SPDX-License-Identifier: MIT
-# Copyright (c) 2024 MusicScope
+# SPDX - License - Identifier: MIT
+# Copyright (c) 2025 Perday CatalogLAB™
 
 """
 Integration tests using real MySQL data.
@@ -51,7 +51,9 @@ def get_test_engine() -> Engine:
     return create_engine(database_url)
 
 
-@pytest.mark.skipif(not DATABASE_AVAILABLE, reason="Database dependencies not available")
+@pytest.mark.skipif(
+    not DATABASE_AVAILABLE, reason="Database dependencies not available"
+)
 class TestRealDatabaseIntegration:
     """Test against real label data from MySQL."""
 
@@ -152,7 +154,7 @@ class TestRealDatabaseIntegration:
             # Basic format checks
             assert isinstance(canonical_id, str)
             assert len(canonical_id) > 0
-            assert "-" in canonical_id  # Should have slug-hash format
+            assert "-" in canonical_id  # Should have slug - hash format
 
             # Should be unique
             assert canonical_id not in ids_generated, f"Duplicate ID: {canonical_id}"
@@ -172,7 +174,7 @@ class TestRealDatabaseIntegration:
 
         start_time = time.time()
 
-        for label_id, label_name in labels:
+        for _label_id, label_name in labels:
             normalize_label(label_name)
 
         normalization_time = time.time() - start_time
@@ -180,7 +182,7 @@ class TestRealDatabaseIntegration:
         # Test canonical ID performance
         start_time = time.time()
 
-        for label_id, label_name in labels:
+        for _label_id, label_name in labels:
             get_canonical_label_id(label_name)
 
         id_generation_time = time.time() - start_time
@@ -203,7 +205,7 @@ class TestRealDatabaseIntegration:
         clear_cache()
 
         # First pass - should all be cache misses
-        for label_id, label_name in labels:
+        for _label_id, label_name in labels:
             normalize_label(label_name)
 
         from label_normalizer_matcher import get_cache_stats
@@ -211,7 +213,7 @@ class TestRealDatabaseIntegration:
         stats_after_first = get_cache_stats()
 
         # Second pass - should all be cache hits
-        for label_id, label_name in labels:
+        for _label_id, label_name in labels:
             normalize_label(label_name)
 
         stats_after_second = get_cache_stats()
@@ -220,7 +222,9 @@ class TestRealDatabaseIntegration:
         assert stats_after_second.hits > stats_after_first.hits
         assert stats_after_second.hit_rate > 0.5  # Should have good hit rate
 
-        print(f"Cache stats: {stats_after_second.hits} hits, {stats_after_second.misses} misses")
+        print(
+            f"Cache stats: {stats_after_second.hits} hits, {stats_after_second.misses} misses"
+        )
         print(f"Hit rate: {stats_after_second.hit_rate:.2%}")
 
     def test_deduplication_potential(self):
@@ -241,7 +245,9 @@ class TestRealDatabaseIntegration:
 
         # Find potential duplicates
         potential_duplicates = {
-            normalized: group for normalized, group in normalized_groups.items() if len(group) > 1
+            normalized: group
+            for normalized, group in normalized_groups.items()
+            if len(group) > 1
         }
 
         if potential_duplicates:
@@ -257,7 +263,9 @@ class TestRealDatabaseIntegration:
         print(f"Deduplication potential: {dedup_potential}/{total_labels} labels")
 
 
-@pytest.mark.skipif(not DATABASE_AVAILABLE, reason="Database dependencies not available")
+@pytest.mark.skipif(
+    not DATABASE_AVAILABLE, reason="Database dependencies not available"
+)
 class TestSpecificLabelPatterns:
     """Test specific patterns found in our music database."""
 
@@ -341,7 +349,8 @@ class TestSpecificLabelPatterns:
             if similar_with_scores:
                 # Should be tuples if include_scores=True
                 assert all(
-                    isinstance(item, tuple) and len(item) == 2 for item in similar_with_scores
+                    isinstance(item, tuple) and len(item) == 2
+                    for item in similar_with_scores
                 )
                 print(f"Similar with scores: {similar_with_scores}")
 
