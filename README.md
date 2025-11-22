@@ -130,6 +130,7 @@ pytest --cov=src --cov-report=html
 - [Architecture Guide](ARCHITECTURE.md)
 - [Performance Benchmarks](BENCHMARKS.md)
 - [Security Policy](SECURITY.md)
+- [Label Database Refresh](docs/LABEL_DATABASE.md)
 
 ## 🛡️ Security
 
