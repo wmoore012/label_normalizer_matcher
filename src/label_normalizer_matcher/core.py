@@ -23,10 +23,9 @@ import re
 import time
 import unicodedata
 from dataclasses import dataclass
-from typing import Iterable, List, Optional, Tuple, Union
+from typing import Iterable, Optional, Union
 
 from .exceptions import LabelNormalizationError, TimeoutExceededError
-
 
 # ---------------------------------------------------------------------------
 # Cache tracking
@@ -48,7 +47,7 @@ class CacheStats:
 
 
 # Single cache shared across normalization / ID helpers
-_CACHE: dict[Tuple[str, str], str] = {}
+_CACHE: dict[tuple[str, str], str] = {}
 _CACHE_STATS = CacheStats()
 
 
@@ -194,7 +193,7 @@ def find_similar_labels(
     *,
     include_scores: bool = False,
     limit: Optional[int] = None,
-) -> Union[List[str], List[Tuple[str, float]]]:
+) -> Union[list[str], list[tuple[str, float]]]:
     """Return labels similar to *query* from *candidates*.
 
     The implementation uses a lightweight similarity heuristic based on
@@ -210,7 +209,7 @@ def find_similar_labels(
 
     q = _normalize_for_match(query)
 
-    scored: List[Tuple[str, float]] = []
+    scored: list[tuple[str, float]] = []
     for c in cand_list:
         c_norm = _normalize_for_match(c)
         # Jaccard-like token overlap
@@ -243,7 +242,7 @@ def find_similar_labels_timed(
     timeout_sec: float = 0.5,
     include_scores: bool = False,
     limit: Optional[int] = None,
-) -> Union[List[str], List[Tuple[str, float]]]:
+) -> Union[list[str], list[tuple[str, float]]]:
     """Time-bounded variant of :func:`find_similar_labels`.
 
     If the operation exceeds ``timeout_sec`` a :class:`LabelNormalizationError`
@@ -257,7 +256,7 @@ def find_similar_labels_timed(
     # Materialise candidates once so we can iterate multiple times if needed
     cand_list = list(candidates)
 
-    scored: List[Tuple[str, float]] = []
+    scored: list[tuple[str, float]] = []
     q = _normalize_for_match(query)
     q_tokens = set(q.split())
 
